@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "sourceMap": true,
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "declaration": false,
+    "composite": false,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "plugins": [{ "transform": "typescript-transform-paths" }],
+    "paths": {
+      "~/*": ["./src/*"],
+      "~/generated": ["./prisma/generated/type-graphql"],
+      "~/types": ["./src/types/types"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "prisma/generated/type-graphql"],
+  "include": ["src", ".eslintrc.js", "ecosystem.config.js", "prisma"]
+}

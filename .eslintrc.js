@@ -1,0 +1,37 @@
+module.exports = {
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: '.',
+  },
+  env: {
+    browser: true,
+    es6: true,
+    node: true,
+  },
+  extends: [
+    'airbnb-typescript/base',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier/@typescript-eslint',
+    'plugin:prettier/recommended',
+  ],
+  plugins: ['@typescript-eslint', 'prettier', 'promise'],
+  rules: {
+    'prettier/prettier': 'error',
+    'no-unused-vars': 'error',
+    'no-console': 'off',
+    'import/prefer-default-export': 'off',
+    'object-shorthand': 'off',
+    'import/extensions': 'off',
+    'class-methods-use-this': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 0,
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'max-classes-per-file': ['error', 4],
+    strict: 0,
+    'no-underscore-dangle': 'off',
+  },
+}

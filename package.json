@@ -8,10 +8,11 @@
     "user": "kodoku"
   },
   "scripts": {
-    "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
+    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "generate": "prisma generate",
-    "build": "rm -rf dist && ttsc",
     "start": "cross-env NODE_ENV=production node dist/src/index.js",
+    "clean": "rimraf dist",
+    "build": "npm run clean && npm run transpile",
     "update": "ncu -i"
   },
   "dependencies": {

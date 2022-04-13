@@ -12,7 +12,7 @@
     "generate": "prisma generate",
     "start": "cross-env NODE_ENV=production node dist/src/index.js",
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run transpile",
+    "build": "npm run clean && ttsc",
     "update": "ncu -i"
   },
   "dependencies": {

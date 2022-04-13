@@ -1,5 +1,5 @@
 import { Resolver, Query, Ctx, Mutation, Arg } from 'type-graphql'
-import { createBaseResolver } from '~/entities/shared/base-resolver'
+import { createBaseResolver } from '~/resolvers/shared/base.resolver'
 import bcrypt from 'bcryptjs'
 import { User } from '~/generated'
 import { Context } from '~/types'

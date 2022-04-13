@@ -5,19 +5,17 @@ import { buildSchema, BuildSchemaOptions } from 'type-graphql'
 import depthLimit from 'graphql-depth-limit'
 import consola from 'consola'
 import _ from 'lodash'
-import path from 'path'
 import { Context } from '~/types'
 import { config } from '~/config'
 import { PrismaClient } from '@prisma/client'
-import { resolvers } from '~/generated'
-import UserResolver from '~/entities/user'
-import { MeResolver } from '~/queries/me'
+import { resolvers as baseResolvers } from '~/generated'
+import * as resolvers from '~/resolvers'
 
 export const createSchema = (
   options?: Partial<BuildSchemaOptions>
 ): Promise<GraphQLSchema> => {
   const defined: BuildSchemaOptions = {
-    resolvers: [...resolvers, UserResolver, MeResolver],
+    resolvers: [...baseResolvers, ..._.map(resolvers, (r) => r)],
     emitSchemaFile: config.NODE_ENV === 'development',
     authChecker: ({ context }: { context: Context }) => {
       const { req } = context
@@ -39,7 +37,7 @@ export default async (app: Express, database: PrismaClient): Promise<void> => {
     schema,
     validationRules: [depthLimit(8)],
     context: ({ req }): Context => ({ req, prisma: database }),
-    introspection: config.NODE_ENV === 'development',
+    introspection: true,
     formatError: (error: GraphQLError) => {
       consola.error(error)
 

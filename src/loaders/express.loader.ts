@@ -6,7 +6,10 @@ import session from 'express-session'
 import { redis } from '~/redis'
 import { config } from '~/config'
 
-const allowedHosts = ['https://spectrefm.com']
+const allowedHosts = [
+  'https://spectrefm.com',
+  'https://studio.apollographql.com',
+]
 
 export default (): Express => {
   const app = express()
@@ -36,7 +39,7 @@ export default (): Express => {
       origin:
         config.NODE_ENV === 'production'
           ? allowedHosts
-          : ['https://studio.apollographql.com', 'http://localhost:3000'],
+          : [...allowedHosts, 'http://localhost:3000'],
     })
   )
 

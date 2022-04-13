@@ -3,17 +3,15 @@ import { map } from 'lodash'
 import { Artist } from '~/entities'
 import { lastFM, audioDB } from '~/utils'
 import { LastFMTopTrack, AudioDBArtist } from '~/types'
-import { Song } from 'prisma/generated/type-graphql/models'
+import { Song } from '~/generated'
 
 const normalizeTrack = (track: LastFMTopTrack) => ({
-  id: parseInt(`${track.artist.name} ${track.name}`, 36),
   playcount: track.playcount,
   title: track.name,
   artistName: track.artist.name,
 })
 
 const normalizeArtist = (artist: AudioDBArtist) => ({
-  id: parseInt(artist.strArtist, 36),
   name: artist.strArtist,
   formedYear: artist.intFormedYear,
   image: artist.strArtistThumb,
@@ -114,7 +112,6 @@ class ArtistResolver {
       }
 
       return {
-        id: parseInt(artist.name, 36),
         name: artist.name,
         biography: artist.bio?.content,
       }

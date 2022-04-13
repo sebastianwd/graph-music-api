@@ -1,9 +1,10 @@
-import { Resolver, Query, Arg, Int } from 'type-graphql'
-import _ from 'lodash'
+import { Arg, Args, Int, Query, Resolver } from 'type-graphql'
 import { coalesce } from 'object-path'
 import { Album } from '~/entities'
-import { lastFM, audioDB } from '~/utils'
-import { LastFMImage } from '~/types'
+import { LastFMImage } from '~/types/types'
+import { audioDB, lastFM } from '~/utils'
+import { GetAlbumArgs } from './album.input'
+import _ from 'lodash'
 
 const getCoverImage = (images: LastFMImage) => {
   if (!images) {
@@ -22,11 +23,10 @@ const getCoverImage = (images: LastFMImage) => {
 }
 
 @Resolver()
-class AlbumResolver {
+export class AlbumResolver {
   @Query(() => Album, { nullable: true })
   async albumByTrack(
-    @Arg('trackTitle') trackTitle: string,
-    @Arg('artistName') artistName: string
+    @Args() { artistName, trackTitle }: GetAlbumArgs
   ): Promise<Partial<Album> | undefined> {
     const { data } = await lastFM.getTrackInfo({
       trackTitle,
@@ -44,7 +44,6 @@ class AlbumResolver {
     const coverImage = getCoverImage(album?.image)
 
     return {
-      id: parseInt(`${artist.name} ${album?.title}`, 36),
       title: album?.title || '',
       artistName: artist.name,
       coverImage,
@@ -81,7 +80,6 @@ class AlbumResolver {
     const trackTitles = _.map(album.tracks.track, 'name')
 
     return {
-      id: parseInt(`${album.artist} ${album.name}`, 36),
       title: album.name,
       artistName: album.artist,
       tracks: trackTitles,
@@ -124,7 +122,7 @@ class AlbumResolver {
           artistName: albumArtistName,
         })
 
-        const tracks = albumInfo?.tracks.track
+        const tracks = albumInfo?.tracks?.track
 
         if (_.isEmpty(tracks)) {
           return undefined
@@ -165,5 +163,3 @@ class AlbumResolver {
     return albumsByYear
   }
 }
-
-export default AlbumResolver

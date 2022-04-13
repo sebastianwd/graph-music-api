@@ -1,8 +1,7 @@
 import { ObjectType, Field } from 'type-graphql'
 
+@ObjectType()
 class Artist {
-  id: number
-
   @Field()
   name: string
 

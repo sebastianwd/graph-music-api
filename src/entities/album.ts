@@ -1,8 +1,7 @@
-import { Field } from 'type-graphql'
+import { Field, ObjectType } from 'type-graphql'
 
+@ObjectType()
 class Album {
-  id: number
-
   @Field()
   title: string
 

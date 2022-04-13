@@ -31,6 +31,16 @@ type AggregateUser {
   _sum: UserSumAggregate
 }
 
+type Album {
+  artistName: String!
+  coverImage: String
+  description: String
+  genre: String
+  title: String!
+  tracks: [String!]!
+  year: String
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -119,6 +129,11 @@ input IntWithAggregatesFilter {
   notIn: [Int!]
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createManyPlaylist(data: [PlaylistCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManySong(data: [SongCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
@@ -132,6 +147,8 @@ type Mutation {
   deletePlaylist(where: PlaylistWhereUniqueInput!): Playlist
   deleteSong(where: SongWhereUniqueInput!): Song
   deleteUser(where: UserWhereUniqueInput!): User
+  login(input: LoginInput!): User
+  register(input: RegisterInput!): User!
   updateManyPlaylist(data: PlaylistUpdateManyMutationInput!, where: PlaylistWhereInput): AffectedRowsOutput!
   updateManySong(data: SongUpdateManyMutationInput!, where: SongWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
@@ -641,9 +658,13 @@ type Query {
   aggregatePlaylist(cursor: PlaylistWhereUniqueInput, orderBy: [PlaylistOrderByWithRelationInput!], skip: Int, take: Int, where: PlaylistWhereInput): AggregatePlaylist!
   aggregateSong(cursor: SongWhereUniqueInput, orderBy: [SongOrderByWithRelationInput!], skip: Int, take: Int, where: SongWhereInput): AggregateSong!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
+  album(albumTitle: String!, artistName: String!): Album
+  albumByTrack(artistName: String!, trackTitle: String!): Album
+  albumsByArtist(artistName: String!, limit: Int = 8, page: Int): [Album!]
   findFirstPlaylist(cursor: PlaylistWhereUniqueInput, distinct: [PlaylistScalarFieldEnum!], orderBy: [PlaylistOrderByWithRelationInput!], skip: Int, take: Int, where: PlaylistWhereInput): Playlist
   findFirstSong(cursor: SongWhereUniqueInput, distinct: [SongScalarFieldEnum!], orderBy: [SongOrderByWithRelationInput!], skip: Int, take: Int, where: SongWhereInput): Song
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
+  getYoutubeIds(artistName: String!, limit: Int = 2, trackTitle: String!): [String!]!
   groupByPlaylist(by: [PlaylistScalarFieldEnum!]!, having: PlaylistScalarWhereWithAggregatesInput, orderBy: [PlaylistOrderByWithAggregationInput!], skip: Int, take: Int, where: PlaylistWhereInput): [PlaylistGroupBy!]!
   groupBySong(by: [SongScalarFieldEnum!]!, having: SongScalarWhereWithAggregatesInput, orderBy: [SongOrderByWithAggregationInput!], skip: Int, take: Int, where: SongWhereInput): [SongGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
@@ -654,6 +675,12 @@ type Query {
   songs(cursor: SongWhereUniqueInput, distinct: [SongScalarFieldEnum!], orderBy: [SongOrderByWithRelationInput!], skip: Int, take: Int, where: SongWhereInput): [Song!]!
   user(where: UserWhereUniqueInput!): User
   users(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): [User!]!
+}
+
+input RegisterInput {
+  email: String!
+  password: String!
+  username: String!
 }
 
 type Song {

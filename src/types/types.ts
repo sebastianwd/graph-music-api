@@ -1,7 +1,7 @@
-import { Request } from 'express'
-import { Stream } from 'stream'
-import { Session, SessionData } from 'express-session'
-import { PrismaClient } from '@prisma/client'
+import type { Request } from 'express'
+import type { Stream } from 'stream'
+import type { Session, SessionData } from 'express-session'
+import type { PrismaClient } from '@prisma/client'
 
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U
 

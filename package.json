@@ -7,12 +7,16 @@
   "config": {
     "user": "kodoku"
   },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/index.ts",
     "generate": "prisma generate",
-    "start": "cross-env NODE_ENV=production node dist/src/index.js",
+    "start": "cross-env NODE_ENV=production node dist/index.js",
+    "transpile": "babel --extensions .ts,.js ./src -d ./dist --copy-files",
     "clean": "rimraf dist",
-    "build": "npm run clean && ttsc",
+    "build": "npm run clean && npm run transpile",
     "update": "ncu -i"
   },
   "dependencies": {
@@ -49,19 +53,25 @@
     "yt-search": "^2.10.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/preset-typescript": "^7.15.0",
+    "@babel/runtime": "^7.15.4",
+    "@babel/runtime-corejs3": "^7.15.4",
     "@types/bcrypt": "^10.0.28-alpha",
     "@types/bcryptjs": "^2.4.2",
     "@types/common-tags": "^1.8.1",
     "@types/connect-redis": "^0.0.18",
     "@types/cors": "^2.8.12",
     "@types/debug": "^4.1.7",
-    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
     "@types/express-session": "^1.17.4",
-    "@types/graphql": "^14.5.0",
     "@types/graphql-depth-limit": "^1.1.3",
     "@types/graphql-fields": "^1.3.4",
-    "@types/graphql-relay": "^0.7.0",
     "@types/ioredis": "^4.28.10",
     "@types/lodash": "^4.14.181",
     "@types/node": "^16.11.26",
@@ -70,6 +80,8 @@
     "@types/yt-search": "^2.3.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^8.13.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",

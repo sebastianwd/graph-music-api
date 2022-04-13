@@ -5,10 +5,10 @@ import { buildSchema, BuildSchemaOptions } from 'type-graphql'
 import depthLimit from 'graphql-depth-limit'
 import consola from 'consola'
 import _ from 'lodash'
-import { Context } from '~/types'
+import { Context } from '~/types/types'
 import { config } from '~/config'
 import { PrismaClient } from '@prisma/client'
-import { resolvers as baseResolvers } from '~/generated'
+import { resolvers as baseResolvers } from '~/prisma/generated'
 import * as resolvers from '~/resolvers'
 
 export const createSchema = (

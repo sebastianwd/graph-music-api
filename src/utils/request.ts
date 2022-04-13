@@ -14,7 +14,7 @@ import {
   LastFMAlbumResponse,
   AudioDBAlbumsResponse,
   LastFMTopAlbumsResponse,
-} from '~/types'
+} from '~/types/types'
 import createQueryParam from './create-query-param'
 import { urls } from './constants'
 

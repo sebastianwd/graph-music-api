@@ -1,8 +1,8 @@
 import { Resolver, Query, Ctx, Mutation, Arg } from 'type-graphql'
 import { createBaseResolver } from '~/resolvers/shared/base.resolver'
 import bcrypt from 'bcryptjs'
-import { User } from '~/generated'
-import { Context } from '~/types'
+import { User } from '~/prisma/generated'
+import { Context } from '~/types/types'
 import { LoginInput, RegisterInput } from './user.input'
 
 const UserBaseResolver = createBaseResolver(User)

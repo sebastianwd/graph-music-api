@@ -25,11 +25,10 @@
     "noUnusedParameters": false,
     "plugins": [{ "transform": "typescript-transform-paths" }],
     "paths": {
-      "~/*": ["./src/*"],
-      "~/generated": ["./prisma/generated/type-graphql"],
-      "~/types": ["./src/types/types"]
+      "~/generated": ["./src/prisma/generated"],
+      "~/*": ["./src/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "prisma/generated/type-graphql"],
-  "include": ["src", ".eslintrc.js", "ecosystem.config.js", "prisma"]
+  "exclude": ["node_modules", "dist"],
+  "include": ["src", ".eslintrc.js"]
 }

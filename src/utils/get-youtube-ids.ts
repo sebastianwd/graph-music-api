@@ -1,7 +1,7 @@
 import ytSearch from 'yt-search'
 import Axios from 'axios'
 import _ from 'lodash'
-import { YoutubeIdResponse } from '~/types'
+import { YoutubeIdResponse } from '~/types/types'
 import { urls } from './constants'
 
 const getYoutubeIds = async (

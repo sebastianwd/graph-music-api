@@ -2,7 +2,7 @@ import { Resolver, Query, Arg, Int } from 'type-graphql'
 import { map } from 'lodash'
 import { Artist } from '~/entities'
 import { lastFM, audioDB } from '~/utils'
-import { LastFMTopTrack, AudioDBArtist } from '~/types'
+import { LastFMTopTrack, AudioDBArtist } from '~/types/types'
 import { Song } from '~/generated'
 
 const normalizeTrack = (track: LastFMTopTrack) => ({
